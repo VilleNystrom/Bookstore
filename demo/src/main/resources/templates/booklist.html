@@ -7,29 +7,37 @@
 </head>
 <body>
 
-    <h1>Book List</h1>
+<h1>Book List</h1>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Publication Year</th>
-                <th>ISBN</th>
-                <th>Price</th>
-            </tr>
-        </thead>
+<a href="/addbook">Add New Book</a>
 
-        <tbody>
-            <tr th:each="book : ${books}">
-                <td th:text="${book.title}"></td>
-                <td th:text="${book.author}"></td>
-                <td th:text="${book.publicationYear}"></td>
-                <td th:text="${book.isbn}"></td>
-                <td th:text="${book.price}"></td>
-            </tr>
-        </tbody>
-    </table>
+<br><br>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publication Year</th>
+            <th>ISBN</th>
+            <th>Price</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.publicationYear}"></td>
+            <td th:text="${book.isbn}"></td>
+            <td th:text="${book.price}"></td>
+            <td>
+                <a th:href="@{/delete/{id}(id=${book.id})}">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 </body>
 </html>
