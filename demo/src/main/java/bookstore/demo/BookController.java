@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class BookController {
 
     private final BookRepository repository;
+    private final CategoryRepository categoryRepository;
 
-    public BookController(BookRepository repository) {
+    public BookController(BookRepository repository, CategoryRepository categoryRepository) {
         this.repository = repository;
+        this.categoryRepository = categoryRepository;
     }
 
-    @GetMapping("/index")
+    @GetMapping({"/", "/index"})
     public String index() {
         return "index";
     }
@@ -26,21 +28,20 @@ public class BookController {
         return "booklist";
     }
 
-    // Show add book form
     @GetMapping("/addbook")
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
+
         return "addbook";
     }
 
-    // Save new book
     @PostMapping("/savebook")
     public String saveBook(Book book) {
         repository.save(book);
         return "redirect:/booklist";
     }
 
-    // Delete book
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long id) {
         repository.deleteById(id);
